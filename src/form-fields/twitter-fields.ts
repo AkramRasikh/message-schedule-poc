@@ -1,5 +1,5 @@
 import TextInput from '../components/form/text-input';
-import { timeIsInFuture } from './validation-helpers';
+// import { timeIsInFuture } from './validation-helpers';
 
 interface LengthRules {
   value: number;
@@ -12,13 +12,19 @@ interface Rules {
   validate?: { (flag: any): boolean };
 }
 
-interface FormFields {
+interface Pattern {
+  value: any;
+  message: string;
+}
+
+export interface FormFields {
   InputComponent: React.ElementType;
   name: string;
   label: string;
-  rules: Rules;
+  rules?: Rules;
   helperText?: string;
   required: boolean;
+  pattern?: Pattern;
 }
 
 export interface FormFieldsProps {
@@ -43,14 +49,18 @@ export default [
     },
     InputComponent: TextInput,
   },
-  {
-    name: 'timeOfTweet',
-    label: 'Time tweet is scheduled for',
-    type: 'text',
-    required: true,
-    rules: {
-      validate: timeIsInFuture,
-    },
-    InputComponent: TextInput,
-  },
+  // {
+  //   name: 'timeOfTweet',
+  //   label: 'Time tweet is scheduled for',
+  //   type: 'text',
+  //   required: true,
+  //   // rules: {
+  //   //   validate: timeIsInFuture,
+  //   // },
+  //   pattern: {
+  //     value: /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/,
+  //     message: 'legit date please!',
+  //   },
+  //   InputComponent: TextInput,
+  // },
 ];

@@ -1,9 +1,14 @@
 import React from 'react';
-import { Button, FormControl, Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-import { FormFieldsProps } from '../../form-fields/twitter-fields';
+import { FormFieldsProps, FormFields } from '../../form-fields/twitter-fields';
 
-const Form: React.FC<FormFieldsProps> = ({ fields }) => {
+interface Props {
+  fields: FormFields[];
+  setForm: (fieldData: any) => void;
+}
+
+const Form: React.FC<Props> = ({ fields, setForm }) => {
   const {
     register,
     formState: { errors },
@@ -11,13 +16,36 @@ const Form: React.FC<FormFieldsProps> = ({ fields }) => {
   } = useForm();
 
   const onSubmit = (fieldData: any) => {
-    console.log('fieldData: ', fieldData);
+    const m = new Date();
+    setForm({
+      ...fieldData,
+      postTime:
+        m.getUTCFullYear() +
+        '/' +
+        (m.getUTCMonth() + 1) +
+        '/' +
+        m.getUTCDate() +
+        ' ' +
+        m.getUTCHours() +
+        ':' +
+        m.getUTCMinutes() +
+        ':' +
+        m.getUTCSeconds(),
+    });
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {fields.map(
-        ({ InputComponent, name, label, required, rules, ...fieldProps }) => {
+        ({
+          InputComponent,
+          name,
+          label,
+          required,
+          pattern,
+          rules,
+          ...fieldProps
+        }) => {
           return (
             <Grid key={name}>
               <InputComponent
@@ -25,8 +53,10 @@ const Form: React.FC<FormFieldsProps> = ({ fields }) => {
                 label={label}
                 register={register(name, {
                   required,
+                  pattern,
                   ...rules,
                 })}
+                // defaultValue={22}
                 {...fieldProps}
               />
               {errors[name] && <span>{errors[name].message}</span>}
