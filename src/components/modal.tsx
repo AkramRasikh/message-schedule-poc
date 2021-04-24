@@ -54,9 +54,9 @@ const SimpleModal: React.FC<SimpleModalProps> = ({
   };
 
   const body = (
-    <div style={modalStyle} className={classes.paper}>
+    <Grid style={modalStyle} className={classes.paper}>
       {children}
-    </div>
+    </Grid>
   );
 
   return (

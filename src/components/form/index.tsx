@@ -16,27 +16,25 @@ const Form: React.FC<FormFieldsProps> = ({ fields }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl>
-        {fields.map(
-          ({ InputComponent, name, label, required, rules, ...fieldProps }) => {
-            return (
-              <Grid key={name}>
-                <InputComponent
-                  name={name}
-                  label={label}
-                  register={register(name, {
-                    required,
-                    ...rules,
-                  })}
-                  {...fieldProps}
-                />
-                {errors[name] && <span>{errors[name].message}</span>}
-              </Grid>
-            );
-          },
-        )}
-        <Button type='submit'>Submit</Button>
-      </FormControl>
+      {fields.map(
+        ({ InputComponent, name, label, required, rules, ...fieldProps }) => {
+          return (
+            <Grid key={name}>
+              <InputComponent
+                name={name}
+                label={label}
+                register={register(name, {
+                  required,
+                  ...rules,
+                })}
+                {...fieldProps}
+              />
+              {errors[name] && <span>{errors[name].message}</span>}
+            </Grid>
+          );
+        },
+      )}
+      <Button type='submit'>Submit</Button>
     </form>
   );
 };

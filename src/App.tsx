@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Form } from './components';
+import { Modal, Form, DatePicker } from './components';
 import twitterFields from './form-fields/twitter-fields';
 
 const App: React.FC = () => {
@@ -9,6 +9,8 @@ const App: React.FC = () => {
       <Modal openModalText='Create tweet'>
         <Form fields={twitterFields} />
       </Modal>
+
+      <DatePicker />
     </div>
   );
 };

@@ -1,14 +1,15 @@
 import TextInput from '../components/form/text-input';
+import { timeIsInFuture } from './validation-helpers';
+
+interface LengthRules {
+  value: number;
+  message: string;
+}
 
 interface Rules {
-  minLength: {
-    value: number;
-    message: string;
-  };
-  maxLength: {
-    value: number;
-    message: string;
-  };
+  minLength?: LengthRules;
+  maxLength?: LengthRules;
+  validate?: { (flag: any): boolean };
 }
 
 interface FormFields {
@@ -39,6 +40,16 @@ export default [
         value: 280,
         message: 'Max number of characters in a tweet is 280!',
       },
+    },
+    InputComponent: TextInput,
+  },
+  {
+    name: 'timeOfTweet',
+    label: 'Time tweet is scheduled for',
+    type: 'text',
+    required: true,
+    rules: {
+      validate: timeIsInFuture,
     },
     InputComponent: TextInput,
   },
