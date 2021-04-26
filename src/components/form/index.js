@@ -3,20 +3,7 @@ import { Button, Grid } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { nanoid } from 'nanoid';
 
-const Form = ({ fields, setForm, defaultValuesProps }) => {
-  console.log('defaultValuesProps in form: ', defaultValuesProps);
-
-  // const useFormProps = defaultValuesProps
-  //   ? {
-  //       defaultValues: {
-  //         twitterMessage: defaultValuesProps.twitterMessage,
-  //         postTime: defaultValuesProps.postTime,
-  //       },
-  //     }
-  //   : undefined;
-
-  // console.log('useFormProps: ', useFormProps);
-
+const Form = ({ fields, setForm, defaultValues }) => {
   const {
     register,
     formState: { errors },
@@ -24,14 +11,18 @@ const Form = ({ fields, setForm, defaultValuesProps }) => {
   } = useForm();
 
   const onSubmit = (fieldData) => {
-    const m = new Date();
-    setForm({
-      id: nanoid(),
-      ...fieldData,
-      postTime: `${m.getUTCFullYear()}/${
-        m.getUTCMonth() + 1
-      }/${m.getUTCDate()} ${m.getUTCHours()}:${m.getUTCMinutes()}:${m.getUTCSeconds()}`,
-    });
+    if (defaultValues) {
+      setForm({ ...defaultValues, ...fieldData });
+    } else {
+      const m = new Date();
+      setForm({
+        id: nanoid(),
+        ...fieldData,
+        postTime: `${m.getUTCFullYear()}/${
+          m.getUTCMonth() + 1
+        }/${m.getUTCDate()} ${m.getUTCHours()}:${m.getUTCMinutes()}:${m.getUTCSeconds()}`,
+      });
+    }
   };
 
   return (
@@ -55,6 +46,7 @@ const Form = ({ fields, setForm, defaultValuesProps }) => {
                 pattern,
                 ...rules,
               })}
+              defaultValue={defaultValues && defaultValues[name]}
               {...fieldProps}
             />
             {errors[name] && <span>{errors[name].message}</span>}

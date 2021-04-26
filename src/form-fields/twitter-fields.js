@@ -1,5 +1,4 @@
 import TextInput from '../components/form/text-input';
-// import { timeIsInFuture } from './validation-helpers';
 
 export default [
   {

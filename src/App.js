@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
-import {
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-} from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import { Modal, Form } from './components';
+import { Grid, List } from '@material-ui/core';
+import { Modal, Form, ListItemComponent } from './components';
 import twitterFields from './form-fields/twitter-fields';
 
 const App = () => {
@@ -24,9 +15,21 @@ const App = () => {
   };
 
   const editPost = (id) => {
-    console.log('editPost id', id);
     setShowEdit(tweets.find((tweet) => tweet.id === id));
     setOpenEdit(true);
+  };
+
+  const setEdittedForm = (data) => {
+    setTweets(
+      tweets.map((tweet) => {
+        if (tweet.id === data.id) {
+          return data;
+        }
+        return tweet;
+      }),
+    );
+    setOpenEdit(false);
+    setShowEdit(null);
   };
 
   const deletePost = (id) =>
@@ -38,38 +41,27 @@ const App = () => {
       <Modal openModalText='Create tweet' open={open} setOpen={setOpen}>
         <Form fields={twitterFields} setForm={setFormInfo} />
       </Modal>
-      {!!tweets.length &&
-        tweets.map(({ id, twitterMessage, postTime }) => (
-          <Grid item xs={12} md={6} key={id}>
-            <List dense={false}>
-              <ListItem>
-                <ListItemText primary={twitterMessage} secondary={postTime} />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge='end'
-                    aria-label='edit'
-                    onClick={() => editPost(id)}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    edge='end'
-                    aria-label='delete'
-                    onClick={() => deletePost(id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            </List>
-          </Grid>
-        ))}
+      {!!tweets.length && (
+        <Grid item xs={12} md={6}>
+          <List dense={false}>
+            {tweets.map(({ id, twitterMessage, postTime }) => (
+              <ListItemComponent
+                key={id}
+                primaryText={twitterMessage}
+                secondaryText={postTime}
+                editPost={() => editPost(id)}
+                deletePost={() => deletePost(id)}
+              />
+            ))}
+          </List>
+        </Grid>
+      )}
       {openEdit && (
         <Modal openModalText='Edit tweet' open={openEdit} setOpen={setOpenEdit}>
           <Form
             fields={twitterFields}
-            setForm={setFormInfo}
-            defaultValuesProps={showEdit}
+            setForm={setEdittedForm}
+            defaultValues={showEdit}
           />
         </Modal>
       )}

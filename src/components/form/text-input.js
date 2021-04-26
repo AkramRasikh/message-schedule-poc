@@ -4,7 +4,7 @@ import { FormHelperText, Grid, Input, InputLabel } from '@material-ui/core';
 const TextInput = ({
   type,
   label,
-  // defaultValue,
+  defaultValue,
   name,
   register,
   helperText,
@@ -18,7 +18,7 @@ const TextInput = ({
       id={name}
       type={type}
       data-testid={name}
-      // defaultValue={defaultValue}
+      defaultValue={defaultValue}
       {...register}
     />
   </>
