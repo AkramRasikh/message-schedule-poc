@@ -1,4 +1,4 @@
-export const timeIsInFuture = (date: Date) => {
+export const timeIsInFuture = (date) => {
   console.log('date: ', date);
   return true;
 };

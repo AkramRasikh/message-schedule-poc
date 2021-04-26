@@ -1,19 +1,10 @@
 import React from 'react';
 import { FormHelperText, Grid, Input, InputLabel } from '@material-ui/core';
 
-interface TextInputProps {
-  type: string;
-  label: string;
-  defaultValue: string;
-  name: string;
-  register: any;
-  helperText: string;
-}
-
-const TextInput: React.FC<TextInputProps> = ({
+const TextInput = ({
   type,
   label,
-  defaultValue,
+  // defaultValue,
   name,
   register,
   helperText,
@@ -27,7 +18,7 @@ const TextInput: React.FC<TextInputProps> = ({
       id={name}
       type={type}
       data-testid={name}
-      defaultValue={defaultValue}
+      // defaultValue={defaultValue}
       {...register}
     />
   </>

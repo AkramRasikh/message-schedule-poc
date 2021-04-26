@@ -1,29 +1,44 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es6: true,
+    'jest/globals': true,
+  },
+  globals: {
+    exports: true,
+    module: true,
+    require: true,
+    graphql: false,
+    process: false,
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+  },
+  parserOptions: {
+    sourceType: 'module',
+    ecmaVersion: 2019,
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true,
+      jsx: true,
+    },
   },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
+    'airbnb',
+    'plugin:jest/recommended',
+    'eslint-config-prettier',
   ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 12,
-    sourceType: 'module',
+  rules: {
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'import/prefer-default-export': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/jsx-wrap-multilines': 'off',
+    'react/forbid-prop-types': 'off',
+    'react/prop-types': ['warn'],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'no-param-reassign': 'off',
+    'no-prototype-builtins': 'off',
+    'max-classes-per-file': 'off',
+    'react/jsx-curly-newline': 'off',
   },
-  plugins: ['react', '@typescript-eslint'],
-  rules: {},
-  overrides: [
-    {
-      files: ['**/*.tsx'],
-      rules: {
-        'react/prop-types': 'off',
-      },
-    },
-  ],
 };

@@ -1,36 +1,6 @@
 import TextInput from '../components/form/text-input';
 // import { timeIsInFuture } from './validation-helpers';
 
-interface LengthRules {
-  value: number;
-  message: string;
-}
-
-interface Rules {
-  minLength?: LengthRules;
-  maxLength?: LengthRules;
-  validate?: { (flag: any): boolean };
-}
-
-interface Pattern {
-  value: any;
-  message: string;
-}
-
-export interface FormFields {
-  InputComponent: React.ElementType;
-  name: string;
-  label: string;
-  rules?: Rules;
-  helperText?: string;
-  required: boolean;
-  pattern?: Pattern;
-}
-
-export interface FormFieldsProps {
-  fields: FormFields[];
-}
-
 export default [
   {
     name: 'twitterMessage',

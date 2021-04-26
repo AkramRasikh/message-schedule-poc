@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Modal, Button, Grid } from '@material-ui/core';
 
 function rand() {
@@ -17,7 +17,7 @@ function getModalStyle() {
   };
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     paper: {
       position: 'absolute',
@@ -30,19 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface SimpleModalProps {
-  children: React.ReactNode;
-  openModalText: string;
-  setOpen: (open: boolean) => void;
-  open: boolean;
-}
-
-const SimpleModal: React.FC<SimpleModalProps> = ({
-  children,
-  openModalText,
-  setOpen,
-  open,
-}) => {
+const SimpleModal = ({ children, openModalText, setOpen, open }) => {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
