@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, List } from '@material-ui/core';
-import { Modal, Form, ListItemComponent } from './components';
+import { Modal, Form, ListItemComponent, DatePicker } from './components';
 import twitterFields from './form-fields/twitter-fields';
 
 const App = () => {
@@ -41,6 +41,8 @@ const App = () => {
       <Modal openModalText='Create tweet' open={open} setOpen={setOpen}>
         <Form fields={twitterFields} setForm={setFormInfo} />
       </Modal>
+      <DatePicker />
+
       {!!tweets.length && (
         <Grid item xs={12} md={6}>
           <List dense={false}>
